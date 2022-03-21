@@ -1,0 +1,3 @@
+Egon :30000
+Benny :3000
+Kjeld :20
