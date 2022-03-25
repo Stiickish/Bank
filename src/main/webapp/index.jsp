@@ -3,42 +3,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>JSP - Hello World</title>
+    <title>JSP - Bank</title>
 </head>
 <body>
-<h1 style="text-align: center"><%= "Bank of Betül!" %>
+<h1 style="text-align: center"><%= "Schweizer Bank" %>
 </h1>
 <br/>
-
-
-<%--
-<a href="hello-servlet">Hello Servlet</a>
-
-<br>
-<br>
---%>
-
+<div style="text-align: center">
 ${requestScope.besked}
 ${requestScope.fejl}
-
-
-<%--<c:forEach items="${applicationScope.konti}" var="item" >
-
-    ${item.value.navn} : ${item.value.saldo}
-    <br>
-
-</c:forEach>--%>
-
-
-
-<form align="center" action="Login" method="post">
+</div>
+<br>
+<form align="center" method="post">
     <label for="Brugernavn">Brugernavn:</label><br>
     <input type="text" id="Brugernavn" name="Brugernavn"><br>
     <label for="Adgangskode">Adgangskode:</label><br>
     <input type="text" id="Adgangskode" name="Adgangskode"><br>
-    <input type="Submit" value="Log Ind">
-
+    <input type="Submit" value="Log Ind" formaction="Login">
+    <input type="Submit" value="Opret Bruger" formaction="OpretServlet">
 </form>
+
+<style>
+    body {
+        background-image: url("banking-business-banner-finance-savings-silhouette-city-background_48369-11851.jpg");
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+    }
+</style>
+
 
 </body>
 </html>

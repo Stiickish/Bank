@@ -9,7 +9,6 @@ import java.util.Map;
 @WebServlet(name = "Login", value = "/Login")
 public class LoginServlet extends HttpServlet {
 
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -20,21 +19,28 @@ public class LoginServlet extends HttpServlet {
 
         String Brugernavn = request.getParameter("Brugernavn");
         String Adgangskode = request.getParameter("Adgangskode");
+        HttpSession session = request.getSession(true);
+        session.setAttribute("Adgangskode", Adgangskode);
+
+
 
         Map<String, Konto> kontoMap = (Map<String, Konto>) getServletContext().getAttribute("konti");
 
         Konto konto = kontoMap.getOrDefault(Brugernavn, null);
 
         String fejlBesked;
-
-        if (konto == null) {
+        if (kontoMap.get(Brugernavn).getLogingCounter()>3) {
+            fejlBesked = "For mange forsøg. Kontakt kundeservice";
+            request.setAttribute("fejl", fejlBesked);
+            request.getRequestDispatcher("index.jsp").forward(request, response);
+        } else if (konto == null) {
             fejlBesked = "Kontoen eksistere ikke";
             request.setAttribute("fejl", fejlBesked);
             request.getRequestDispatcher("index.jsp").forward(request, response);
-        }
-        if (!konto.getKode().equals(Adgangskode)) {
-            fejlBesked = "Dit brugernavn eller adgangskode er forkert, prøv igen";
+        } else if (!konto.getKode().equals(Adgangskode)) {
+            fejlBesked = "Dit brugernavn eller adgangskode er forkert, prøv igen : forsøg " + konto.getLogingCounter();
             request.setAttribute("fejl", fejlBesked);
+            konto.setLogingCounter();
             request.getRequestDispatcher("index.jsp").forward(request, response);
         }
         HttpSession httpSession = request.getSession();
@@ -43,4 +49,7 @@ public class LoginServlet extends HttpServlet {
 
         request.getRequestDispatcher("WEB-INF/Brugerside.jsp").forward(request, response);
     }
+
+
 }
+

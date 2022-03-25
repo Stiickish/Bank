@@ -5,11 +5,20 @@ public class Konto {
     private String navn;
     private String kode;
     private int saldo;
+    private int logingCounter = 1;
 
     public Konto(String navn, String kode, int saldo) {
         this.navn = navn;
         this.kode = kode;
         this.saldo = saldo;
+    }
+
+    public int getLogingCounter() {
+        return logingCounter;
+    }
+
+    public void setLogingCounter() {
+        this.logingCounter++;
     }
 
     public String getNavn() {
@@ -51,4 +60,11 @@ public class Konto {
 
         return saldo;
     }
+    public void overførsel(Konto navn, int beløb){
+        if(this.saldo>=beløb){
+            navn.saldo +=beløb;
+            this.saldo-=beløb;
+        }
+    }
+
 }
