@@ -13,8 +13,7 @@
     <title>Velkommen</title>
 </head>
 
-<h1 style="text-align: center">Velkommen ${sessionScope.Brugernavn}, til din brugerside</h1>
-<h2 style="text-align: center">Her kan du tilgå dine konti eller bestille tid med din bankrådgiver</h2>
+<h1 style="text-align: center">Velkommen ${sessionScope.Brugernavn}. Her kan du indsætte penge på din konto</h1>
 
 <p style="text-align: center"> Din saldo er ${sessionScope.konto.saldo} kr. </p>
 <br>
